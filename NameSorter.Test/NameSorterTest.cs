@@ -1,6 +1,7 @@
 ﻿namespace NameSorter.Test
 {
     using System;
+    using System.Collections.Generic;
     using NUnit.Framework;
     using Moq;
     using NameSorter.Model;
@@ -23,7 +24,7 @@
 
            var mockSorter = new Mock<INameSorter>();
 
-           mockSorter.Object.Sort(mockSource.Object, mockAlgorithm.Object, mockDestination.Object);
+           mockSorter.Object.Sort(mockSource.Object, mockAlgorithm.Object, new List<INameDestination> { mockDestination.Object });
         }
     }
 }
