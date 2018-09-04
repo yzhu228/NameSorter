@@ -15,6 +15,7 @@
         /// INameDestination.
         /// </summary>
         [Test]
+        [Description("INameSorter dependency test")]
         public void TestSort() {
            var mockSource = new Mock<INameSource>();
            var mockAlgorithm = new Mock<ISortAlgorithm>();
