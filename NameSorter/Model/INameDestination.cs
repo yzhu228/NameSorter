@@ -11,6 +11,5 @@ namespace NameSorter.Model
     public interface INameDestination
     {
         void OutputNames(IEnumerable<string> names);
-        IEnumerable<string> Names { get; }
     }
 }
