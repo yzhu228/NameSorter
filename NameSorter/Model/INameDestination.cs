@@ -1,4 +1,4 @@
-namespace NameSorter
+namespace NameSorter.Model
 {
     using System.Collections.Generic;
 

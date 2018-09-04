@@ -3,7 +3,8 @@
     using System;
     using NUnit.Framework;
     using Moq;
-
+    using NameSorter.Model;
+    
     [TestFixture]
     public class NameSorterTest 
     {

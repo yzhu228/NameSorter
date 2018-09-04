@@ -1,4 +1,4 @@
-namespace NameSorter
+namespace NameSorter.Model
 {
     using System.Collections.Generic;
 
@@ -10,9 +10,9 @@ namespace NameSorter
     /// with a <c>ISortAlgorithm</c> instance. The sorted names then are passed to 
     /// an <c>INameDestination</c> object.
     /// </remarks>
-    /// <seealso cref="NameSorter.INameSource" />
-    /// <seealso cref="NameSorter.ISortAlgorithm" />
-    /// <seealso cref="NameSorter.INameDestination" />
+    /// <seealso cref="NameSorter.Model.INameSource" />
+    /// <seealso cref="NameSorter.Model.ISortAlgorithm" />
+    /// <seealso cref="NameSorter.Model.INameDestination" />
     public interface INameSorter
     {
         void Sort(INameSource source, ISortAlgorithm algorithm, INameDestination destination);
