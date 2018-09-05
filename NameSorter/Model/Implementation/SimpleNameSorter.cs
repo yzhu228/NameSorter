@@ -7,12 +7,12 @@ namespace NameSorter.Model.Implementation
     using NameSorter.Model;
     using com.zhusmelb.Util.Logging;
 
-    public class NameSorter : INameSorter 
+    public class SimpleNameSorter : INameSorter 
     {
         private static readonly ILogger _log = 
-            LogHelper.GetLogger(typeof(NameSorter).FullName);
+            LogHelper.GetLogger(typeof(SimpleNameSorter).FullName);
 
-        void Sort(INameSource source, ISortAlgorithm algorithm, IEnumerable<INameDestination> destinations) {
+        public void Sort(INameSource source, ISortAlgorithm algorithm, IEnumerable<INameDestination> destinations) {
             if (source==null)
                 throw new ArgumentNullException(nameof(source));
             if (algorithm==null)
@@ -23,13 +23,13 @@ namespace NameSorter.Model.Implementation
             _log.Info("Start sorting names ...");
 
             var names = source.GetNames();
-            _logNames(sortedNames, "Read names from source ...");
+            _logNames(names, "Read names from source ...");
 
             var sortedNames = algorithm.Sort(names);
             _logNames(sortedNames, "Names sorted");
 
             foreach (var dest in destinations) {
-                dest.Output(sortedNames);
+                dest.OutputNames(sortedNames);
             }
         }
 

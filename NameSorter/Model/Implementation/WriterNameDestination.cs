@@ -7,6 +7,13 @@ namespace NameSorter.Model.Implementation
     using NameSorter.Model;
     using com.zhusmelb.Util.Logging;
 
+    /// <summary>
+    /// Allow sorted name list be output into a TextWriter
+    /// </summary>
+    /// <remarks>
+    /// This class own the TextWriter passed in, make sure you dispose it
+    /// after use.
+    /// </remarks>
     public class WriterNameDestination : INameDestination, IDisposable
     {
         private static readonly ILogger _log = 
@@ -23,7 +30,7 @@ namespace NameSorter.Model.Implementation
             _log.Info("A write name destination created");
             Writer = writer;
         }
-
+    
         public virtual void OutputNames(IEnumerable<string> names) {
             try {
                 _log.Verbose("To output names to writer");
