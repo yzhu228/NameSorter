@@ -1,5 +1,6 @@
 namespace NameSorter.Model
 {
+    using System;
     using System.Collections.Generic;
 
     /// <summary>
@@ -13,7 +14,7 @@ namespace NameSorter.Model
     /// <seealso cref="NameSorter.Model.INameSource" />
     /// <seealso cref="NameSorter.Model.ISortAlgorithm" />
     /// <seealso cref="NameSorter.Model.INameDestination" />
-    public interface INameSorter
+    public interface INameSorter : IDisposable
     {
         INameSource Source { get; set; }
         ISortAlgorithm Algorithm { get; set; }

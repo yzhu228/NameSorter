@@ -25,7 +25,7 @@ namespace NameSorter.Model.Implementation
         /// <remarks>
         /// <para>This implementation will ignore any lines with only white spaces and 
         /// trim the name before processing.</para>
-        /// <para>A name is separated into section into sections by spaces, the last
+        /// <para>A name is separated into sections by spaces, the last
         /// section of the name is Last Name while the rest are Given Names.</para>
         ///
         /// <para>If only one section exist for a name, it is treated as Last Name and
