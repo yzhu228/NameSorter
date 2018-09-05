@@ -15,6 +15,9 @@ namespace NameSorter.Model
     /// <seealso cref="NameSorter.Model.INameDestination" />
     public interface INameSorter
     {
-        void Sort(INameSource source, ISortAlgorithm algorithm, IEnumerable<INameDestination> destinations);
+        INameSource Source { get; set; }
+        ISortAlgorithm Algorithm { get; set; }
+        IEnumerable<INameDestination> Destinations { get; set; }
+        void Sort();
     }
 }
