@@ -33,10 +33,15 @@ namespace NameSorter.Model.Implementation
 
 #region INameDestination implementation    
         public virtual void OutputNames(IEnumerable<string> names) {
+            if (names==null)
+                throw new ArgumentNullException(nameof(names));
+
             try {
                 _log.Verbose("To output names to writer");
                 foreach (var n in names) {
                     _log.Verbose(n);
+                    // need guard here as Writer can be 
+                    // overwritten by derived class
                     Writer?.WriteLine(n);
                 }
                 _log.Verbose("Finish output names.");

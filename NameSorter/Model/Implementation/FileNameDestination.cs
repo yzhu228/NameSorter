@@ -24,7 +24,7 @@ namespace NameSorter.Model.Implementation
             if (string.IsNullOrWhiteSpace(fileName))
                 throw new ArgumentException($"{nameof(fileName)} cannot be empty.");
 
-            _log.Info("New Name destination created with file {0}", fileName);
+            _log.Info("New destination created with file {0}", fileName);
 
             try {
                 Writer = new StreamWriter(fileName);
