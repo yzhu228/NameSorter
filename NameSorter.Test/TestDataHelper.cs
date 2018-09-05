@@ -6,7 +6,7 @@ namespace NameSorter.Test
     {
         public static readonly string[] Names = {
             "Janet Parsons",
-            "Vaughn Lewis",
+            "Vaughn Léwis",
             "Adonis Julius Archer",
             "Shelby Nathan Yoder",
             "Marin Alvarez",
@@ -28,7 +28,7 @@ namespace NameSorter.Test
             "Samantha Carter",
             "Hunter Uriah Mathew Clarke",
             "Leo Gardner",
-            "Vaughn Lewis",
+            "Vaughn Léwis",
             "London Lindsey",
             "Mikayla Lopez",
             "Fred P. O'Neill",
