@@ -46,17 +46,17 @@ $ dotnet test ./NameSorter.Test/
 ---
 To acquire help on running the name-sorter application, issue command as below:
 ```
-$ dotnet run --project ./NameSorter.App/ --help
+$ dotnet run --project ./NameSorter.App/ -- --help
 ```
 To run the name-sorter with the shipped sample name list `name-list.txt`, issue command below"
 ```
-$ dotnet run --project ./NameSorter.App/ ./NameSorter.App/name-list.txt
+$ dotnet run --project ./NameSorter.App/ -- ./NameSorter.App/name-list.txt
 ```
 This command generates a file named `sorted-names-list.txt` in the current working directory as well as output the list on the console window.
 
 If you want a name other than the default, use `-o` option to specify the output file name:
 ```
-$ dotnet run --project ./NameSorter.App/ ./NameSorter.App/name-list.txt -o names-sorted.txt
+$ dotnet run --project ./NameSorter.App/ -- ./NameSorter.App/name-list.txt -o names-sorted.txt
 ```
 
 ## Improvment and Refactor
