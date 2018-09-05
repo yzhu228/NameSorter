@@ -13,8 +13,8 @@ namespace NameSorter.Test
     public class FileNameSourceTest 
     {
         [Test, Description("Test reading a data file.")]
-        [TestCase(@".\TestData\TestData.txt")]
-        [TestCase(@".\TestData\TestData-Empty-Lines.txt")]
+        [TestCase(@"./TestData/TestData.txt")]
+        [TestCase(@"./TestData/TestData-Empty-Lines.txt")]
         public void ReadFromFileTest(string dataFile) {
             var source = new FileNameSource(dataFile);
             var names = source.GetNames();
@@ -29,7 +29,7 @@ namespace NameSorter.Test
             var source = new FileNameSource("aaa");
             Assert.Throws<FileNotFoundException>(() => source.GetNames());
 
-            source = new FileNameSource(@".\aaa\datafile.txt");
+            source = new FileNameSource(@"./aaa/datafile.txt");
             Assert.Throws<DirectoryNotFoundException>(() => source.GetNames());
         }
     }
