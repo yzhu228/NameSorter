@@ -10,6 +10,11 @@ namespace NameSorter.Model.Implementation
     /// <summary>
     /// A NameSource from a text file.
     /// </summary>
+    /// <remarks>
+    /// This INameSource implementation validates and sanitises the input
+    /// by removing all empty lines and trim leading and trailing spaces
+    /// of a line.
+    /// </remarks>
     public class FileNameSource : INameSource 
     {
         private static readonly ILogger _log = 
@@ -20,8 +25,8 @@ namespace NameSorter.Model.Implementation
         public FileNameSource(string fileName) {
             if (fileName==null)
                 throw new ArgumentNullException(nameof(fileName));
-            if (!string.IsNullOrWhiteSpace(fileName))
-                throw new ArgumentException($"{nameof(fileName)} cannot be empty.");
+            if (string.IsNullOrWhiteSpace(fileName))
+                throw new ArgumentException($"\"{nameof(fileName)}\" cannot be empty.");
             _log.Info("New source created with file {0}", _fileName);
             _fileName = fileName;
         }
@@ -36,7 +41,10 @@ namespace NameSorter.Model.Implementation
                     while ((line = sr.ReadLine()) != null) 
                     {
                         _log.Verbose(line);
-                        names.Add(line);
+                        // do validation and sanitisation on the input.
+                        // no empty line and no leading/trailing spaces
+                        if (!string.IsNullOrWhiteSpace(line))
+                            names.Add(line.Trim());
                     }
                     _log.Verbose("End read names from {0}.", _fileName);
                 }

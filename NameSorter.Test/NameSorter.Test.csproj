@@ -17,6 +17,8 @@
 
   <ItemGroup>
     <None Include="../nlog.config" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="./TestData/TestData.txt" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="./TestData/TestData-Empty-Lines.txt" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>
