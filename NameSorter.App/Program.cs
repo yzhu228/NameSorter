@@ -18,6 +18,7 @@ namespace NameSorter.App
 
     class Program
     {
+        static readonly string DefaultOutputFile = @"./sorted-names-list.txt";
         static void Main(string[] args)
         {
             var result = Parser.Default.ParseArguments<Options>(args)
@@ -28,7 +29,7 @@ namespace NameSorter.App
         private static void sortName(Options option) {
             var inFileName = option.InputFilename;
             var outFileName = !string.IsNullOrWhiteSpace(option.OutputFilename) ?
-                option.OutputFilename : @"./sorted-names-list.txt";
+                option.OutputFilename : DefaultOutputFile;
 
             try {
                 using (var sorter = new SimpleNameSorter {
