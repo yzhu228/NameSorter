@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\NameSorter\NameSorter.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <RootNamespace>NameSorter.App</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="name-list.txt" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../nlog.config" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>
