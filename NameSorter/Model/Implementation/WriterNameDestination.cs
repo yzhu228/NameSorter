@@ -30,13 +30,14 @@ namespace NameSorter.Model.Implementation
             _log.Info("A write name destination created");
             Writer = writer;
         }
-    
+
+#region INameDestination implementation    
         public virtual void OutputNames(IEnumerable<string> names) {
             try {
                 _log.Verbose("To output names to writer");
                 foreach (var n in names) {
                     _log.Verbose(n);
-                    Writer.WriteLine(n);
+                    Writer?.WriteLine(n);
                 }
                 _log.Verbose("Finish output names.");
             }
@@ -49,6 +50,7 @@ namespace NameSorter.Model.Implementation
                 throw;
             }
         }
+#endregion
 
 #region IDisposable implementation
     public void Dispose() {

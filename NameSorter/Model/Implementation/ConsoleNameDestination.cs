@@ -6,6 +6,9 @@ namespace NameSorter.Model.Implementation
     using NameSorter.Model;
     using com.zhusmelb.Util.Logging;
 
+    /// <summary>
+    /// Use Console.Out as destination
+    /// </summary>
     public class ConsoleNameDestination : WriterNameDestination
     {
         public ConsoleNameDestination() : base(Console.Out) {}
