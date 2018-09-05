@@ -28,3 +28,7 @@ The command will checkout the source into a folder named `NameSorter`. Now issue
 $ cd NameSorter
 $ dotnet build -c Release
 ```
+If you want to build an executable version for particular runtime, for example Windows x64:
+```
+$ dotnet build -c Release -r win-x64 ./NameSorter/NameSorter.csproj
+```
