@@ -8,6 +8,12 @@ namespace NameSorter.Model.Implementation
     using NameSorter.Model;
     using com.zhusmelb.Util.Logging;
 
+    public class Name 
+    {
+        public string LastName { get; set; }
+        public string GivenName {get; set; }
+    }
+
     /// <summary>
     /// Implement a sorting algorithm with LINQ service.
     /// </summary>
@@ -16,6 +22,14 @@ namespace NameSorter.Model.Implementation
     {
         private static readonly ILogger _log =
             LogHelper.GetLogger(typeof(LinqSortAlgorithm).FullName);
+
+        private Func<IEnumerable<Name>, IEnumerable<Name>> _sortAction;
+        public LinqSortAlgorithm() {}
+        public LinqSortAlgorithm(Func<IEnumerable<Name>, IEnumerable<Name>> sortAction) {
+            if (sortAction==null)
+                throw new ArgumentNullException(nameof(sortAction));
+            _sortAction = sortAction;
+        }
 
         /// <summary>
         /// Implement Sort method of ISortAlgorithm
@@ -35,7 +49,7 @@ namespace NameSorter.Model.Implementation
         /// Name as a whole.</para>
         /// </remarks>
         public IEnumerable<string> Sort(IEnumerable<string> names) {
-            return names.Where(n => !string.IsNullOrWhiteSpace(n))
+            var result = names.Where(n => !string.IsNullOrWhiteSpace(n))
                 .Select(n =>
                 {
                     var sections = Regex.Split(n.Trim(), @"\s+");
@@ -44,14 +58,13 @@ namespace NameSorter.Model.Implementation
                     var givenName = sections.Length>1 ? string.Join(" ", sections, 0, sections.Length - 1)
                                         : string.Empty;
                     _log.Verbose("lastName: {0}, givenName: {1}", lastName, givenName);
-                    return new
+                    return new Name
                     {
                         LastName = lastName,
                         GivenName = givenName
                     };
-                })
-                .OrderBy(n => n.LastName).ThenBy(n => n.GivenName)
-                .Select(n => $"{n.GivenName} {n.LastName}");
+                });
+            return _sortAction(result).Select(n => $"{n.GivenName} {n.LastName}");
         }
     }
 }

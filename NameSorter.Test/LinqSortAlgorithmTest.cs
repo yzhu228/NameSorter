@@ -2,6 +2,7 @@ namespace NameSorter.Test
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using NUnit.Framework;
     using Moq;
     using NameSorter.Model;
@@ -13,10 +14,12 @@ namespace NameSorter.Test
         [Test]
         [Description("Test LinqSortAlgorithm")]
         public void TestLinqSort() {
-            var sortAlgorithm = new LinqSortAlgorithm();
+            var sortAlgorithm = new LinqSortAlgorithm(
+                    ns => ns.OrderBy(n=>n.LastName).ThenBy(n=>n.GivenName)
+                );
             var sortedNames = sortAlgorithm.Sort(TestDataHelper.Names);
 
-            Assert.That(TestDataHelper.ExprectedSortedNames, Is.EqualTo(sortedNames));
+            Assert.That(sortedNames, Is.EqualTo(TestDataHelper.ExprectedSortedNames));
         }
     }
 }
