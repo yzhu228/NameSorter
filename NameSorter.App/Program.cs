@@ -4,6 +4,7 @@ namespace NameSorter.App
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using CommandLine;
     using NameSorter.Model;
     using NameSorter.Model.Implementation;
@@ -14,6 +15,8 @@ namespace NameSorter.App
         public string InputFilename { get; set; }
         [Option('o', "output", HelpText="Output file name")]
         public string OutputFilename { get; set; }
+        [Option('d', "desc", Default=false, HelpText="Sort name list descendingly")]
+        public bool IsDecending { get; set; }
     }
 
     class Program
@@ -30,11 +33,13 @@ namespace NameSorter.App
             var inFileName = option.InputFilename;
             var outFileName = !string.IsNullOrWhiteSpace(option.OutputFilename) ?
                 option.OutputFilename : DefaultOutputFile;
-
+            var algorithm = !option.IsDecending 
+                    ? new LinqAscSortAlgorithm() as ISortAlgorithm 
+                    : new LinqDescSortAlgorithm() as ISortAlgorithm;
             try {
                 using (var sorter = new SimpleNameSorter {
                     Source = new FileNameSource(inFileName),
-                    Algorithm = new LinqSortAlgorithm(),
+                    Algorithm = algorithm,
                     Destinations = new List<INameDestination> {
                         new ConsoleNameDestination(),
                         new FileNameDestination(outFileName)}
