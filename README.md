@@ -1,7 +1,7 @@
-# NameSorter project
+# NameSorter project [![Build Status](https://travis-ci.org/yzhu228/NameSorter.svg?branch=master)](https://travis-ci.org/yzhu228/NameSorter)
 
 ## Purpose
----
+
 This project is an assessment project (the project) requested by GlobalX to demonstrate a set of practices employed in the solution for a simple problem domain.
 
 The problem domain is to sort a set of names by Last name, and up to 3 given names. Instead of the problem domain, the assessment focuses on the practices employed in the design and coding, with the intention of future maintainability and extensibility by developers other than the creator.
@@ -11,7 +11,7 @@ The problem doamin has been simplified to show employed design and coding practi
 The project is to target .NET Core as a console application that accepts a file as input.
 
 ## Design
----
+
 S.O.L.I.D is the OOD principles to be applied in the project. General design patterns are used when they are necessary.
 
 The project is divided into 3 major components in gerneral, Source, Algorithm and Desitination. Source provides targets on which the Algorithm is applied, the result of the Algorithm is to be output to the Destinations. This design enforces the principle of Single Responsibility and Interface Segregation by dividing features into small units.
@@ -21,8 +21,8 @@ An INameSorter interface is used to present the name sorting service. The interf
 As the dependencies can be swapped with other implementations according to Liskov substitution principle, Open and Close principle is facilitated.
 
 ## Build
----
-The project is developed with .NET Core 2.1 and targeting both netcoreapp2.0.  
+
+The project is developed with .NET Core 2.1 and targeting netcoreapp2.0.  
 
 First you need to checkout the source by giving command on a command prompt:
 ```
@@ -36,14 +36,14 @@ $ dotnet build
 ```
 
 ## Test
----
+
 The project is developed with testing in mind. There are unit tests exist to stress test the modules in the solution. To run test:
 ```
 $ dotnet test ./NameSorter.Test/
 ```
 
 ## Run
----
+
 To acquire help on running the name-sorter application, issue command as below:
 ```
 $ dotnet run --project ./NameSorter.App/ -- --help
@@ -60,7 +60,7 @@ $ dotnet run --project ./NameSorter.App/ -- ./NameSorter.App/name-list.txt -o na
 ```
 
 ## Improvment and Refactor
----
+
 There are many places upon which this solution can be improved. Here I just list few:
 
 * Sort descenting
