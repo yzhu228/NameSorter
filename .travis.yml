@@ -4,5 +4,4 @@ mono: none
 dotnet: 2.1.401
 script:
   dotnet build
-  dotnet test ./NameSorter.Test/
   
