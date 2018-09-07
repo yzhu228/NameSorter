@@ -21,5 +21,18 @@ namespace NameSorter.Test
 
             Assert.That(sortedNames, Is.EqualTo(TestDataHelper.ExprectedSortedNames));
         }
+
+        [Test]
+        public void TestLinqDescSort() {
+            var sortAlgorithm = new LinqSortAlgorithm(
+                    ns => ns.OrderByDescending(n=>n.LastName)
+                            .ThenByDescending(n=>n.GivenName)
+                );
+            var sortedNames = sortAlgorithm.Sort(TestDataHelper.Names);
+
+            Assert.That(sortedNames, 
+                Is.EqualTo(TestDataHelper.ExprectedSortedNames.Reverse()));
+
+        }
     }
 }

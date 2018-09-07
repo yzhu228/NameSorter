@@ -4,6 +4,7 @@ namespace NameSorter.App
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using CommandLine;
     using NameSorter.Model;
     using NameSorter.Model.Implementation;
@@ -34,7 +35,7 @@ namespace NameSorter.App
             try {
                 using (var sorter = new SimpleNameSorter {
                     Source = new FileNameSource(inFileName),
-                    Algorithm = new LinqSortAlgorithm(),
+                    Algorithm = new LinqSortAlgorithm(ns => ns.OrderBy(n=>n.LastName).ThenBy(n=>n.GivenName)),
                     Destinations = new List<INameDestination> {
                         new ConsoleNameDestination(),
                         new FileNameDestination(outFileName)}
