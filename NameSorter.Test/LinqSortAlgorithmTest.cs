@@ -14,9 +14,7 @@ namespace NameSorter.Test
         [Test]
         [Description("Test LinqSortAlgorithm")]
         public void TestLinqSort() {
-            var sortAlgorithm = new LinqSortAlgorithm(
-                    ns => ns.OrderBy(n=>n.LastName).ThenBy(n=>n.GivenName)
-                );
+            var sortAlgorithm = new LinqAscSortAlgorithm();
             var sortedNames = sortAlgorithm.Sort(TestDataHelper.Names);
 
             Assert.That(sortedNames, Is.EqualTo(TestDataHelper.ExprectedSortedNames));
@@ -24,10 +22,7 @@ namespace NameSorter.Test
 
         [Test]
         public void TestLinqDescSort() {
-            var sortAlgorithm = new LinqSortAlgorithm(
-                    ns => ns.OrderByDescending(n=>n.LastName)
-                            .ThenByDescending(n=>n.GivenName)
-                );
+            var sortAlgorithm = new LinqDescSortAlgorithm();
             var sortedNames = sortAlgorithm.Sort(TestDataHelper.Names);
 
             Assert.That(sortedNames, 

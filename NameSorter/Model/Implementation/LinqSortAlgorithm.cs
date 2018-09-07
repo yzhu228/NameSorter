@@ -14,6 +14,19 @@ namespace NameSorter.Model.Implementation
         public string GivenName {get; set; }
     }
 
+   public class LinqAscSortAlgorithm : LinqSortAlgorithm 
+   {
+      public LinqAscSortAlgorithm() : 
+         base(ns => ns.OrderBy(n=>n.LastName).ThenBy(n=>n.GivenName)) {}
+   }
+
+   public class LinqDescSortAlgorithm : LinqSortAlgorithm 
+   {
+      public LinqDescSortAlgorithm() : 
+         base(ns => ns.OrderByDescending(n=>n.LastName)
+                      .ThenByDescending(n=>n.GivenName)) {}
+   }
+
     /// <summary>
     /// Implement a sorting algorithm with LINQ service.
     /// </summary>
@@ -24,7 +37,6 @@ namespace NameSorter.Model.Implementation
             LogHelper.GetLogger(typeof(LinqSortAlgorithm).FullName);
 
         private Func<IEnumerable<Name>, IEnumerable<Name>> _sortAction;
-        public LinqSortAlgorithm() {}
         public LinqSortAlgorithm(Func<IEnumerable<Name>, IEnumerable<Name>> sortAction) {
             if (sortAction==null)
                 throw new ArgumentNullException(nameof(sortAction));
