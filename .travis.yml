@@ -3,5 +3,5 @@ solution: NameSorter.sln
 mono: none
 dotnet: 2.1.401
 script:
-  dotnet build
-  
+  - dotnet build
+  - dotnet test ./NameSorter.Test/
