@@ -8,30 +8,54 @@ namespace NameSorter.Model.Implementation
     using NameSorter.Model;
     using com.zhusmelb.Util.Logging;
 
-    public class Name 
+    /// <summary>
+    /// Full name model
+    /// </summary>
+    internal class Name 
     {
+        /// <summary>
+        /// Construct a Name with string of full name.
+        /// </summary>
+        /// <param name="name">a full name</param>
+        /// <exception cref="System.ArgumentException">
+        /// while the <c>name</c> is empty or null
+        /// </exception>
+        public Name(string name) {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException($"\"{nameof(name)}\" cannot be empty.");
+
+            var sections = Regex.Split(name.Trim(), @"\s+");
+            // sections will never be 0 length, it has at least one element.
+            LastName = sections[sections.Length-1];
+            GivenName = sections.Length>1 ? string.Join(" ", sections, 0, sections.Length - 1)
+                                : string.Empty;
+        }
         public string LastName { get; set; }
         public string GivenName {get; set; }
     }
 
-   public class LinqAscSortAlgorithm : LinqSortAlgorithm 
+   public class LinqAscSortAlgorithm : ISortAlgorithm 
    {
-      public LinqAscSortAlgorithm() : 
-         base(ns => ns.OrderBy(n=>n.LastName).ThenBy(n=>n.GivenName)) {}
+      private readonly ISortAlgorithm _algorithm 
+        = new LinqSortAlgorithm(ns => ns.OrderBy(n=>n.LastName).ThenBy(n=>n.GivenName));
+      public IEnumerable<string> Sort(IEnumerable<string> names)
+        =>  _algorithm.Sort(names);
    }
 
-   public class LinqDescSortAlgorithm : LinqSortAlgorithm 
+   public class LinqDescSortAlgorithm : ISortAlgorithm 
    {
-      public LinqDescSortAlgorithm() : 
-         base(ns => ns.OrderByDescending(n=>n.LastName)
-                      .ThenByDescending(n=>n.GivenName)) {}
+      private readonly ISortAlgorithm _algorithm 
+        = new LinqSortAlgorithm(ns => ns.OrderByDescending(n=>n.LastName)
+                      .ThenByDescending(n=>n.GivenName));
+      public IEnumerable<string> Sort(IEnumerable<string> names)
+        =>  _algorithm.Sort(names);
    }
 
     /// <summary>
     /// Implement a sorting algorithm with LINQ service.
     /// </summary>
     /// <value></value>
-    public class LinqSortAlgorithm : ISortAlgorithm
+    internal class LinqSortAlgorithm : ISortAlgorithm
     {
         private static readonly ILogger _log =
             LogHelper.GetLogger(typeof(LinqSortAlgorithm).FullName);
@@ -64,17 +88,10 @@ namespace NameSorter.Model.Implementation
             var result = names.Where(n => !string.IsNullOrWhiteSpace(n))
                 .Select(n =>
                 {
-                    var sections = Regex.Split(n.Trim(), @"\s+");
-                    // sections will never be 0 length, it has at least one element.
-                    var lastName = sections[sections.Length-1];
-                    var givenName = sections.Length>1 ? string.Join(" ", sections, 0, sections.Length - 1)
-                                        : string.Empty;
-                    _log.Verbose("lastName: {0}, givenName: {1}", lastName, givenName);
-                    return new Name
-                    {
-                        LastName = lastName,
-                        GivenName = givenName
-                    };
+                    var name = new Name(n);
+                    _log.Verbose("lastName: {0}, givenName: {1}", 
+                        name.LastName, name.GivenName);
+                    return name;
                 });
             return _sortAction(result).Select(n => $"{n.GivenName} {n.LastName}");
         }
