@@ -16,18 +16,21 @@ namespace NameSorter.Test
         public void TestLinqSort() {
             var sortAlgorithm = new LinqAscSortAlgorithm();
             var sortedNames = sortAlgorithm.Sort(TestDataHelper.Names);
-
             Assert.That(sortedNames, Is.EqualTo(TestDataHelper.ExprectedSortedNames));
+
+            sortedNames = sortAlgorithm.Sort(new List<string>());
+            Assert.That(sortedNames, Is.EqualTo(new List<string>()));
         }
 
         [Test]
         public void TestLinqDescSort() {
             var sortAlgorithm = new LinqDescSortAlgorithm();
             var sortedNames = sortAlgorithm.Sort(TestDataHelper.Names);
-
             Assert.That(sortedNames, 
                 Is.EqualTo(TestDataHelper.ExprectedSortedNames.Reverse()));
 
+            sortedNames = sortAlgorithm.Sort(new List<string>());
+            Assert.That(sortedNames, Is.EqualTo(new List<string>()));
         }
     }
 }
