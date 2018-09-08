@@ -58,15 +58,20 @@ If you want a name other than the default, use `-o` option to specify the output
 ```
 $ dotnet run --project ./NameSorter.App/ -- ./NameSorter.App/name-list.txt -o names-sorted.txt
 ```
+name-sorter application supports sorting a name list descendingly. Use `-d` option in command line to achieve this:
+
+```
+$ dotnet run --project ./NameSorter.App/ -- -d ./NameSorter.App/name-list.txt
+```
 
 ## Improvment and Refactor
 
 There are many places upon which this solution can be improved. Here I just list few:
 
-* Sort descenting
+* Asynchronous sorting 
 * Provide INameSorter factory to reduce couple between client the library.
 * Possible employment of IoC for DI.
-* Asynchronous sorting 
+
 
 
 
