@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using NUnit.Framework;
     using Moq;
     using NameSorter.Model;
@@ -48,6 +49,15 @@
                     d.OutputNames(sortedNames);
             });
             mockSorter.Object.Sort();
+        }
+
+        [Test, Description("Test asynchronous sort method")]
+        public async Task TestSortAsync() {
+            var sorterAsync = new Mock<INameSorterAsync>();
+            sorterAsync.Setup(s => s.SortAsync()).Returns(() => Task.CompletedTask);
+
+            var sortTask = sorterAsync.Object.SortAsync();
+            await sortTask;
         }
 
         [Test, Description("Test SimpleNameSorter with mocks")]

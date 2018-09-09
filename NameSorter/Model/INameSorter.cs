@@ -2,6 +2,8 @@ namespace NameSorter.Model
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Provide name sorting service.
@@ -20,5 +22,12 @@ namespace NameSorter.Model
         ISortAlgorithm Algorithm { get; set; }
         IEnumerable<INameDestination> Destinations { get; set; }
         void Sort();
+    }
+
+    public interface INameSorterAsync : INameSorter
+    {
+        Task SortAsync();
+        Task SortAsync(CancellationToken token);
+        Task SortAsync<T>(CancellationToken toke, IProgress<T> progress);
     }
 }
