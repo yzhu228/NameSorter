@@ -28,22 +28,20 @@ namespace NameSorter.App
                 .WithParsed(sortName);
             return;
         }
-
         private static void sortName(Options option) {
             var inFileName = option.InputFilename;
             var outFileName = !string.IsNullOrWhiteSpace(option.OutputFilename) ?
                 option.OutputFilename : DefaultOutputFile;
-            var algorithm = !option.IsDecending 
-                    ? new LinqAscSortAlgorithm() as ISortAlgorithm 
-                    : new LinqDescSortAlgorithm() as ISortAlgorithm;
+            var builder = new NameSorterBuilder();
             try {
-                using (var sorter = new SimpleNameSorter {
-                    Source = new FileNameSource(inFileName),
-                    Algorithm = algorithm,
-                    Destinations = new List<INameDestination> {
-                        new ConsoleNameDestination(),
-                        new FileNameDestination(outFileName)}
-                    })
+                using (var sorter = builder
+                            .FromFile(inFileName)
+                            .WithLinq(option.IsDecending)
+                            .ToDestination(
+                                new ConsoleNameDestination(), 
+                                new FileNameDestination(outFileName))
+                            .Build()
+                        )                
                 {
                     sorter.Sort();
                 }
@@ -55,7 +53,6 @@ namespace NameSorter.App
                 handleError(ex, "Unexpected error!");
             }
         }
-
         private static void handleError(Exception ex, string message = "") {
             Console.Error.WriteLine($"\nError: {message}");
             Console.Error.WriteLine(ex.Message);

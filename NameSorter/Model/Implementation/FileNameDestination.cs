@@ -29,6 +29,10 @@ namespace NameSorter.Model.Implementation
             try {
                 Writer = new StreamWriter(fileName);
             }
+            catch (UnauthorizedAccessException e) {
+                _log.Error(e, "Access denined.");
+                throw;
+            }
             catch (IOException e) when (e is PathTooLongException 
                                      || e is DirectoryNotFoundException) {
                 _log.Error(e, "Specified file {0} is not valid", fileName);

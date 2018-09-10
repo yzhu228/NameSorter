@@ -39,13 +39,13 @@
             mockSorter.SetupProperty(s => s.Source, _mockSource.Object);
             mockSorter.SetupProperty(s => s.Algorithm, _mockAlgorithm.Object);
             mockSorter.SetupProperty(s => s.Destinations,
-                new List<INameDestination> {_mockDestination1.Object, _mockDestination2.Object} 
+                new List<INameDestination> {_mockDestination1.Object, null, _mockDestination2.Object} 
             );
             mockSorter.Setup(s => s.Sort()).Callback(() => {
                 var names = mockSorter.Object.Source.GetNames();
                 var sortedNames = mockSorter.Object.Algorithm.Sort(names);
                 foreach (var d in mockSorter.Object.Destinations) 
-                    d.OutputNames(sortedNames);
+                    d?.OutputNames(sortedNames);
             });
             mockSorter.Object.Sort();
         }
@@ -55,7 +55,10 @@
             var sorter = new SimpleNameSorter() {
                 Source = _mockSource.Object,
                 Algorithm = _mockAlgorithm.Object,
-                Destinations = new List<INameDestination> {_mockDestination1.Object, _mockDestination2.Object} 
+                Destinations = 
+                    new List<INameDestination> {
+                        _mockDestination1.Object, null, _mockDestination2.Object
+                    } 
             };
 
             sorter.Sort();

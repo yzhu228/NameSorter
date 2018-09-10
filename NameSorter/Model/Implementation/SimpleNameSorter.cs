@@ -33,8 +33,8 @@ namespace NameSorter.Model.Implementation
             _logNames(sortedNames, "Names sorted");
 
             foreach (var dest in Destinations) {
-                _log.Debug("Output to destionation {0}", dest.GetType().FullName);
-                dest.OutputNames(sortedNames);
+                _log.Debug("Output to destionation {0}", dest?.GetType().FullName);
+                dest?.OutputNames(sortedNames);
             }
         }
 
