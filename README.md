@@ -20,6 +20,8 @@ An INameSorter interface is used to present the name sorting service. The interf
 
 As the dependencies can be swapped with other implementations according to Liskov substitution principle, Open and Close principle is facilitated.
 
+Builder pattern is employeed to simplify the creation of an INameSorter instance. NameSorterBuilder is introduced to help create INameSorter instance.
+
 ## Build
 
 The project is developed with .NET Core 2.1 and targeting netcoreapp2.0.  
@@ -69,7 +71,6 @@ $ dotnet run --project ./NameSorter.App/ -- -d ./NameSorter.App/name-list.txt
 There are many places upon which this solution can be improved. Here I just list few:
 
 * Asynchronous sorting 
-* Provide INameSorter factory to reduce couple between client the library.
 * Possible employment of IoC for DI.
 
 
