@@ -22,7 +22,7 @@ namespace NameSorter.Test
             Assert.That(sortedNames, Is.EqualTo(new List<string>()));
         }
 
-        [Test]
+        [Test, Description("Test sorting descendingly")]
         public void TestLinqDescSort() {
             var sortAlgorithm = new LinqDescSortAlgorithm();
             var sortedNames = sortAlgorithm.Sort(TestDataHelper.Names);

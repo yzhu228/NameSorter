@@ -52,7 +52,7 @@ namespace NameSorter.Model.Implementation
             GC.SuppressFinalize(this);
         }
 
-        protected void Dispose(bool disposing) {
+        protected virtual void Dispose(bool disposing) {
             if (disposing) {
                 foreach(var dest in Destinations) {
                     (dest as IDisposable)?.Dispose();
